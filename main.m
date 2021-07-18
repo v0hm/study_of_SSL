@@ -15,8 +15,6 @@ end
 
 zMain_End=RP.zMain_End;
 
-umax = 10;
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -25,18 +23,24 @@ umax = 10;
 %% CONTROL BLOCK
 
 
+if status == "restart"
+    if side = "left"
+        if GoToPoint(bots_nums(1), bots_start_pos_left(1), 10)
+            status = "ready";
+            fprintf("%f\n", "ready");
+        end
+        %GoToPoint(bots_nums(2), bots_start_pos_left(2));
+    elseif side = "right"
+        GoToPoint(bots_nums(1), bots_start_pos_right(1), 10);
+        %GoToPoint(bots_nums(2), bots_start_pos_right(2));
+    end
+elseif status == "game"
 
-fprintf('%f ___ %f \n', RP.Blue(5).x, RP.Blue(5).y);
-RP.Blue(5).ang = RP.Blue(5).ang * (-180/pi);  
-fprintf('%f\n', (RP.Blue(5).ang));
-u = GoToPoint([RP.Blue(5).x, RP.Blue(5).y], [0, 0]) - RP.Blue(5).ang;
-if abs(u) > 25
-    u = sign(u) * 25;
-end 
+elseif status == "penalty"
 
-fprintf('%f\n', u);
-
-RP.Blue(6).rul = Crul(10, 0, 0, u, 0);
+elseif status == "ready"
+    
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
